@@ -5,6 +5,10 @@ on:
     paths:
       - 'skills/**'
       - 'scripts/validate-skills.sh'
+      - 'scripts/lint-context.sh'
+      - 'AGENTS.md'
+      - 'AGENT_INSTRUCTIONS.md'
+      - '.claude/rules/**'
   workflow_dispatch:
 
 jobs:
@@ -15,3 +19,12 @@ jobs:
 
       - name: Validate skill frontmatter and structure
         run: ./scripts/validate-skills.sh
+
+      - name: Lint context files (instruction budget + content rules)
+        run: ./scripts/lint-context.sh
+
+      - name: Verify skill router copies are in sync
+        run: |
+          agents_router=$(awk '/^## Skill Router/{found=1; next} /^## /{if(found) exit} found{print}' AGENTS.md)
+          rules_router=$(sed '1d' .claude/rules/00-skill-router.md)
+          diff <(echo "$agents_router") <(echo "$rules_router") || { echo "FAIL: AGENTS.md Skill Router and .claude/rules/00-skill-router.md are out of sync"; exit 1; }

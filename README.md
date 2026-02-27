@@ -5,25 +5,36 @@ A universal, portable agent instruction set that codifies operational protocols 
 ## Repo Structure
 
 ```
-AGENTS.md                  # Bootstrap stub (tool compatibility + critical ops)
-CLAUDE.md -> AGENTS.md     # Claude Code compatibility symlink
-AGENT_INSTRUCTIONS.md      # Full instructions (operations + standards)
+AGENTS.md                  # Bootstrap stub (prime protocol + skill router)
+CLAUDE.md                  # Claude Code integration (@import directives)
+AGENT_INSTRUCTIONS.md      # Operational core (operations + norms)
+.claude/
+  rules/
+    00-skill-router.md     # Auto-loaded skill router for Claude Code
 skills/
   _POLICY.md               # Risk tier model and security rules for skills
+  README.md                # Full skills catalog
   adr-writing/             # Tier 0: Architecture Decision Records
-  security-review/         # Tier 0: Security review checklist
-  dependency-adding/       # Tier 0: Dependency evaluation workflow
   ci-debugging/            # Tier 0: CI/CD pipeline debugging
+  context-file-authoring/  # Tier 0: Research-backed AGENTS.md authoring guidance
+  dependency-adding/       # Tier 0: Dependency evaluation workflow
   disconnected-environments/ # Tier 0: Air-gapped validation
+  engineering-standards/   # Tier 0: Architecture, testing, delivery, security, design thinking
   feature-spec/            # Tier 0: Spec-driven development
+  mcp-integration/         # Tier 0: MCP server integration planning
   root-cause-analysis/     # Tier 0: Root cause analysis (iterative "why?" technique)
+  security-review/         # Tier 0: Security review checklist
+  upstream-contribution/   # Tier 0: Protocol for contributing corrections upstream
 modules/
   beads.md                 # Beads task tracking integration (default-on)
   gastown.md               # Gas Town multi-agent integration (default-on)
+  mcp.md                   # MCP integration guidance (opt-in)
+  agent-interop.md         # A2A/ACP protocol landscape (opt-in)
 scripts/
-  agent-prime.sh           # Template prime script (fallback for projects without bd/gt)
+  agent-prime.sh           # Template prime script (auto-detects build system)
   install-skills.sh        # Install skills into tool-specific directories
   validate-skills.sh       # Validate skill frontmatter and structure
+  lint-context.sh          # Enforce instruction budget and content rules
 ```
 
 ## Quick Start
@@ -35,7 +46,10 @@ Keep only the bootstrap file at your project root. Everything else goes in a sub
 ```
 your-project/
   AGENTS.md              # Bootstrap stub (required at root — tools scan for it)
-  CLAUDE.md -> AGENTS.md # Claude Code compatibility symlink
+  CLAUDE.md              # Claude Code integration (@import directives)
+  .claude/
+    rules/
+      00-skill-router.md # Auto-loaded skill router (Claude Code only)
   .agent/                # All playbook support files live here
     AGENT_INSTRUCTIONS.md
     modules/
@@ -57,10 +71,14 @@ ln -s "$PLAYBOOK/AGENTS.md" "$PROJECT/AGENTS.md"
 #    Option B: copy (independent snapshot)
 cp "$PLAYBOOK/AGENTS.md" "$PROJECT/AGENTS.md"
 
-# 2. Claude Code compatibility
-ln -s AGENTS.md "$PROJECT/CLAUDE.md"
+# 2. Claude Code integration — @import file (not a symlink)
+cp "$PLAYBOOK/CLAUDE.md" "$PROJECT/CLAUDE.md"
 
-# 3. Support files — keep in .agent/ subdirectory
+# 3. Claude Code skill router rule
+mkdir -p "$PROJECT/.claude/rules"
+cp "$PLAYBOOK/.claude/rules/00-skill-router.md" "$PROJECT/.claude/rules/"
+
+# 4. Support files — keep in .agent/ subdirectory
 mkdir -p "$PROJECT/.agent"
 cp "$PLAYBOOK/AGENT_INSTRUCTIONS.md" "$PROJECT/.agent/"
 cp -r "$PLAYBOOK/modules" "$PROJECT/.agent/"
@@ -95,9 +113,11 @@ Pins a specific commit and makes updates explicit via PR:
 # Add once
 git submodule add https://github.com/HunterGerlach/agent-playbook.git .agent/playbook
 
-# Bootstrap symlinks from the submodule
+# Bootstrap from the submodule
 ln -s .agent/playbook/AGENTS.md AGENTS.md
-ln -s AGENTS.md CLAUDE.md
+cp .agent/playbook/CLAUDE.md CLAUDE.md
+mkdir -p .claude/rules
+cp .agent/playbook/.claude/rules/00-skill-router.md .claude/rules/
 ```
 
 To pull the latest:
@@ -124,6 +144,9 @@ If you prefer vendored copies (e.g., air-gapped environments), create a script o
 set -euo pipefail
 PLAYBOOK="${1:?Usage: update-playbook.sh /path/to/agent-playbook}"
 cp "$PLAYBOOK/AGENTS.md" "$(git rev-parse --show-toplevel)/AGENTS.md"
+cp "$PLAYBOOK/CLAUDE.md" "$(git rev-parse --show-toplevel)/CLAUDE.md"
+mkdir -p .claude/rules
+cp "$PLAYBOOK/.claude/rules/00-skill-router.md" .claude/rules/
 cp "$PLAYBOOK/AGENT_INSTRUCTIONS.md" .agent/
 cp -r "$PLAYBOOK/modules" .agent/
 cp -r "$PLAYBOOK/scripts" .agent/
@@ -143,11 +166,22 @@ Run it periodically or add a CI reminder to check for upstream changes.
 
 ## How It Works
 
-- **AGENTS.md** is a slim bootstrap stub. Tools that scan for `AGENTS.md` get the critical minimum: prime protocol, non-interactive safety, session completion, and a pointer to the full instructions.
-- **AGENT_INSTRUCTIONS.md** contains the complete operational and engineering standards, organized in three parts:
-  1. **Agent Operations** — prime protocol, task workflow, non-interactive safety, session completion
-  2. **Engineering Standards** — architecture, testing, delivery, security, versioning
-  3. **Context & Integration** — thinking tools, AI norms, skills, Beads/Gas Town, project customization
+- **AGENTS.md** is a slim bootstrap stub. Tools that scan for `AGENTS.md` get the critical minimum: prime protocol, skill router, and a pointer to the full instructions.
+- **CLAUDE.md** uses `@import` syntax to load both AGENTS.md and AGENT_INSTRUCTIONS.md into Claude Code.
+- **AGENT_INSTRUCTIONS.md** contains the operational core: prime protocol, task workflow, non-interactive safety, session completion, and norms (~80 lines).
+- **Skills** provide progressive disclosure: engineering standards, context file authoring, upstream contribution protocol, and specialized workflows are loaded on demand when relevant. The Skill Router in AGENTS.md maps tasks to skills.
+
+### Instruction Budget
+
+The playbook is designed to stay within the ~150-200 reliable instruction-following range (ETH Zurich study, arXiv:2602.11988):
+
+| Component | Instructions |
+|---|---|
+| System prompt | ~50 |
+| AGENTS.md (bootstrap + router) | ~14 |
+| AGENT_INSTRUCTIONS.md (operational core) | ~50 |
+| **Always-on total** | **~114** |
+| **Headroom for project-level rules** | **+36 to +86** |
 
 ## Skills
 
@@ -158,6 +192,8 @@ See [`skills/README.md`](skills/README.md) for the full catalog with description
 ## Further Reading
 
 - [`AGENTS.md`](AGENTS.md) — Bootstrap stub (what agents see first)
-- [`AGENT_INSTRUCTIONS.md`](AGENT_INSTRUCTIONS.md) — Complete operational and engineering standards
-- [`modules/`](modules/) — Tool integrations (Beads, Gas Town)
+- [`AGENT_INSTRUCTIONS.md`](AGENT_INSTRUCTIONS.md) — Operational core (task workflow, safety, norms)
+- [`skills/README.md`](skills/README.md) — Full skills catalog (11 skills)
 - [`skills/_POLICY.md`](skills/_POLICY.md) — Skill risk tiers and security rules
+- [`modules/`](modules/) — Tool integrations (Beads, Gas Town, MCP, agent interop)
+- [`.claude/rules/`](.claude/rules/) — Claude Code auto-loaded rules

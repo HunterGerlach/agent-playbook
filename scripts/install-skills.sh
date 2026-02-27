@@ -77,10 +77,37 @@ install_for_tool() {
   echo ""
 }
 
+install_skill_router() {
+  local rules_dir="$PROJECT_ROOT/.claude/rules"
+  local router_src="$PLAYBOOK_ROOT/.claude/rules/00-skill-router.md"
+
+  if [[ ! -f "$router_src" ]]; then
+    echo "WARNING: Skill router source not found at $router_src, skipping"
+    return
+  fi
+
+  mkdir -p "$rules_dir"
+  if [[ "$MODE" == "symlink" ]]; then
+    ln -sf "$router_src" "$rules_dir/00-skill-router.md"
+    echo "  Linked: .claude/rules/00-skill-router.md"
+  else
+    cp -f "$router_src" "$rules_dir/00-skill-router.md"
+    echo "  Copied: .claude/rules/00-skill-router.md"
+  fi
+}
+
 if [[ "$TARGET" == "all" ]]; then
   install_for_tool "claude"
   install_for_tool "codex"
   install_for_tool "copilot"
+  echo "Installing skill router -> $PROJECT_ROOT/.claude/rules/ ($MODE mode)"
+  install_skill_router
+  echo ""
+elif [[ "$TARGET" == "claude" ]]; then
+  install_for_tool "claude"
+  echo "Installing skill router -> $PROJECT_ROOT/.claude/rules/ ($MODE mode)"
+  install_skill_router
+  echo ""
 else
   install_for_tool "$TARGET"
 fi
