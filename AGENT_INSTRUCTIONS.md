@@ -74,6 +74,7 @@ Before ending any session:
 - **Prefer existing capabilities.** Exhaust built-in capabilities and existing skills before reaching for external tools. Every external call is latency, risk, and a potential point of failure.
 - **AI agents are tools, not authors.** All output should read as if a human wrote it. No AI attribution in code, commits, PRs, or documentation by default.
 - **Match model capability to task complexity.** Use more capable models for planning, architecture, security, and code review. Use smaller, faster models for routine implementation, simple edits, and exploration.
+- **Prefer idempotent actions.** Commands, API calls, and infrastructure changes should be safe to re-run. Use create-or-update over create, upserts over inserts, and `--force` or `--if-not-exists` equivalents where available. Assume any action may be retried.
 - **CLI-first.** Use existing repo CLIs directly. Lowest surface area, easiest to audit.
 - **Write context files from observed failures, not preemptively.** Use the `context-file-authoring` skill for guidance.
 - **Contribute universal corrections upstream.** Use the `upstream-contribution` skill when a correction applies to every project.
