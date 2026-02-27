@@ -187,7 +187,7 @@ The playbook is designed to stay within the ~150-200 reliable instruction-follow
 
 Skills are on-demand runbooks with progressive disclosure — agents see metadata up front and load full instructions only when relevant. All skills follow the risk tier model in [`skills/_POLICY.md`](skills/_POLICY.md).
 
-See [`skills/README.md`](skills/README.md) for the full catalog with descriptions.
+See [`skills/README.md`](skills/README.md) for the full catalog with descriptions. To create a new skill, follow the design rules and required frontmatter in [`skills/_POLICY.md`](skills/_POLICY.md) and use any existing skill as a template.
 
 ## Further Reading
 

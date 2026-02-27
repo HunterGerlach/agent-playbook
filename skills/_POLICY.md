@@ -42,4 +42,4 @@ All skills in this catalog are assigned a risk tier. The tier determines what a 
 - Include `license` in frontmatter (required for cross-tool compatibility).
 - Required frontmatter fields: `name`, `description`, `version`, `tier`, `license`.
 - Skills do not replace always-on instructions in AGENTS.md or AGENT_INSTRUCTIONS.md.
-- **Prefer internal over external** (see AGENT_INSTRUCTIONS.md § Principles). Do not introduce external dependencies when an existing skill or native capability covers the need.
+- **Prefer internal over external** (see AGENT_INSTRUCTIONS.md § Norms). Do not introduce external dependencies when an existing skill or native capability covers the need.
