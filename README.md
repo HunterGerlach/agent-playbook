@@ -11,6 +11,7 @@ AGENT_INSTRUCTIONS.md      # Operational core (operations + norms)
 .claude/
   rules/
     00-skill-router.md     # Auto-loaded skill router for Claude Code
+    01-no-ai-attribution.md # Suppress AI attribution in commits/code
 skills/
   _POLICY.md               # Risk tier model and security rules for skills
   README.md                # Full skills catalog
@@ -49,7 +50,7 @@ your-project/
   CLAUDE.md              # Claude Code integration (@import directives)
   .claude/
     rules/
-      00-skill-router.md # Auto-loaded skill router (Claude Code only)
+      *.md               # Auto-loaded rules (Claude Code only)
   .agent/                # All playbook support files live here
     AGENT_INSTRUCTIONS.md
     modules/
@@ -74,9 +75,9 @@ cp "$PLAYBOOK/AGENTS.md" "$PROJECT/AGENTS.md"
 # 2. Claude Code integration — @import file (not a symlink)
 cp "$PLAYBOOK/CLAUDE.md" "$PROJECT/CLAUDE.md"
 
-# 3. Claude Code skill router rule
+# 3. Claude Code rules (skill router, norms)
 mkdir -p "$PROJECT/.claude/rules"
-cp "$PLAYBOOK/.claude/rules/00-skill-router.md" "$PROJECT/.claude/rules/"
+cp "$PLAYBOOK"/.claude/rules/*.md "$PROJECT/.claude/rules/"
 
 # 4. Support files — keep in .agent/ subdirectory
 mkdir -p "$PROJECT/.agent"
@@ -117,7 +118,7 @@ git submodule add https://github.com/HunterGerlach/agent-playbook.git .agent/pla
 ln -s .agent/playbook/AGENTS.md AGENTS.md
 cp .agent/playbook/CLAUDE.md CLAUDE.md
 mkdir -p .claude/rules
-cp .agent/playbook/.claude/rules/00-skill-router.md .claude/rules/
+cp .agent/playbook/.claude/rules/*.md .claude/rules/
 ```
 
 To pull the latest:
@@ -146,7 +147,7 @@ PLAYBOOK="${1:?Usage: update-playbook.sh /path/to/agent-playbook}"
 cp "$PLAYBOOK/AGENTS.md" "$(git rev-parse --show-toplevel)/AGENTS.md"
 cp "$PLAYBOOK/CLAUDE.md" "$(git rev-parse --show-toplevel)/CLAUDE.md"
 mkdir -p .claude/rules
-cp "$PLAYBOOK/.claude/rules/00-skill-router.md" .claude/rules/
+cp "$PLAYBOOK"/.claude/rules/*.md .claude/rules/
 cp "$PLAYBOOK/AGENT_INSTRUCTIONS.md" .agent/
 cp -r "$PLAYBOOK/modules" .agent/
 cp -r "$PLAYBOOK/scripts" .agent/
