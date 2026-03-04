@@ -8,7 +8,7 @@ Canonical skill definitions for AI-assisted development workflows. These skills 
 |---|---|---|
 | `adr-writing` | 0 | Write Architecture Decision Records for significant architectural choices |
 | `ci-debugging` | 0 | Systematically debug CI/CD pipeline failures |
-| `code-health-review` | 0 | Whole-repo code health assessment across 10 dimensions with prioritized deep dives |
+| `code-health-review` | 0 | Whole-repo code health assessment across 11 dimensions with prioritized deep dives |
 | `context-file-authoring` | 0 | Research-backed guidance for writing effective AGENTS.md and CLAUDE.md files |
 | `dependency-adding` | 0 | Evaluate and add dependencies with supply-chain security and compliance checks |
 | `disconnected-environments` | 0 | Verify solutions work in air-gapped or network-restricted environments |
@@ -21,6 +21,7 @@ Canonical skill definitions for AI-assisted development workflows. These skills 
 | `review-continuous-delivery` | 0 | Assess CI/CD pipeline maturity and deployment automation |
 | `review-design-patterns` | 0 | Assess appropriate use of design patterns and identify anti-patterns |
 | `review-integration-patterns` | 0 | Assess messaging, routing, transformation, and integration error handling |
+| `review-performance` | 0 | Assess algorithmic complexity, resource efficiency, I/O patterns, caching, and measurement |
 | `review-security-posture` | 0 | Assess whole-repo security posture — dependencies, secrets, supply chain |
 | `review-solid` | 0 | Assess adherence to SOLID principles |
 | `review-tdd` | 0 | Assess test-driven development practices and discipline |
