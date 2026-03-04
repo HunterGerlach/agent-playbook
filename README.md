@@ -17,12 +17,14 @@ skills/
   README.md                # Full skills catalog
   adr-writing/             # Tier 0: Architecture Decision Records
   ci-debugging/            # Tier 0: CI/CD pipeline debugging
+  code-health-review/      # Tier 0: Whole-repo code health assessment (orchestrator)
   context-file-authoring/  # Tier 0: Research-backed AGENTS.md authoring guidance
   dependency-adding/       # Tier 0: Dependency evaluation workflow
   disconnected-environments/ # Tier 0: Air-gapped validation
   engineering-standards/   # Tier 0: Architecture, testing, delivery, security, design thinking
   feature-spec/            # Tier 0: Spec-driven development
   mcp-integration/         # Tier 0: MCP server integration planning
+  review-*/                # Tier 0: 10 code health review skills (12factor, clean-architecture, etc.)
   root-cause-analysis/     # Tier 0: Root cause analysis (iterative "why?" technique)
   security-review/         # Tier 0: Security review checklist
   upstream-contribution/   # Tier 0: Protocol for contributing corrections upstream
@@ -194,7 +196,7 @@ See [`skills/README.md`](skills/README.md) for the full catalog with description
 
 - [`AGENTS.md`](AGENTS.md) — Bootstrap stub (what agents see first)
 - [`AGENT_INSTRUCTIONS.md`](AGENT_INSTRUCTIONS.md) — Operational core (task workflow, safety, norms)
-- [`skills/README.md`](skills/README.md) — Full skills catalog (11 skills)
+- [`skills/README.md`](skills/README.md) — Full skills catalog (22 skills)
 - [`skills/_POLICY.md`](skills/_POLICY.md) — Skill risk tiers and security rules
 - [`modules/`](modules/) — Tool integrations (Beads, Gas Town, MCP, agent interop)
 - [`.claude/rules/`](.claude/rules/) — Claude Code auto-loaded rules

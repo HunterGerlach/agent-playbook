@@ -23,6 +23,7 @@ After prime, classify your task and load the relevant skill(s):
 - Architecture decision to record → `adr-writing`
 - Debugging or recurring failure → `root-cause-analysis`
 - MCP server integration → `mcp-integration`
+- Whole-repo code health assessment → `code-health-review`
 - Writing or editing AGENTS.md / CLAUDE.md → `context-file-authoring`
 - Correction that applies to all projects → `upstream-contribution`
 
