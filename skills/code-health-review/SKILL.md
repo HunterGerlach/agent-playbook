@@ -1,6 +1,6 @@
 ---
 name: code-health-review
-description: Whole-repo code health assessment across 11 dimensions. Quick scan, prioritize, then deep dive with detailed review skills.
+description: Whole-repo code health assessment across 12 dimensions. Quick scan, prioritize, then deep dive with detailed review skills.
 version: 1.0.0
 tier: 0
 license: MIT
@@ -8,7 +8,7 @@ license: MIT
 
 # Code Health Review
 
-Assess overall code health across 11 dimensions. Produces a prioritized view of where improvement effort will have the most impact, then guides deep dives using specialized review skills.
+Assess overall code health across 12 dimensions. Produces a prioritized view of where improvement effort will have the most impact, then guides deep dives using specialized review skills.
 
 ## When to Trigger
 
@@ -31,15 +31,16 @@ Assess overall code health across 11 dimensions. Produces a prioritized view of 
 | 8 | Test-Driven Development | `review-tdd` |
 | 9 | Test Pyramid | `review-test-pyramid` |
 | 10 | Performance | `review-performance` |
-| 11 | Security Posture | `review-security-posture` |
+| 11 | UI/UX | `review-ui-ux` |
+| 12 | Security Posture | `review-security-posture` |
 
 ## Workflow
 
 ### Phase 1 — Quick Scan
 
-Rapidly assess all 11 dimensions. For each dimension, examine 3-5 representative files or configurations and assign a preliminary 1-5 score with a one-line observation.
+Rapidly assess all 12 dimensions. For each dimension, examine 3-5 representative files or configurations and assign a preliminary 1-5 score with a one-line observation.
 
-**Output:** Summary table with all 11 dimensions scored.
+**Output:** Summary table with all 12 dimensions scored.
 
 | Dimension | Score | Key Observation |
 |---|---|---|
@@ -86,7 +87,7 @@ See [scoring rubric](assets/scoring-rubric.md) for the universal 1-5 scale and s
 
 ## Quality Checks
 
-- [ ] All 11 dimensions assessed in Phase 1
+- [ ] All 12 dimensions assessed in Phase 1
 - [ ] Prioritization rationale documented
 - [ ] Each deep-dive produces a scorecard with evidence
 - [ ] Findings include file paths and actionable fixes

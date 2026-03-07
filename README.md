@@ -196,7 +196,7 @@ See [`skills/README.md`](skills/README.md) for the full catalog with description
 
 - [`AGENTS.md`](AGENTS.md) — Bootstrap stub (what agents see first)
 - [`AGENT_INSTRUCTIONS.md`](AGENT_INSTRUCTIONS.md) — Operational core (task workflow, safety, norms)
-- [`skills/README.md`](skills/README.md) — Full skills catalog (23 skills)
+- [`skills/README.md`](skills/README.md) — Full skills catalog (24 skills)
 - [`skills/_POLICY.md`](skills/_POLICY.md) — Skill risk tiers and security rules
 - [`modules/`](modules/) — Tool integrations (Beads, Gas Town, MCP, agent interop)
 - [`.claude/rules/`](.claude/rules/) — Claude Code auto-loaded rules
